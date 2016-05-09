@@ -1,2 +1,1 @@
-# openstack-liberty-installer
-Scripts to install Openstack Liberty on Wily ARM64
+# openstack_install_ubuntu_15.10
