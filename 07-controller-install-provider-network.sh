@@ -1,5 +1,5 @@
 #!/bin/bash
-source default-config.inc
+source default-config.sh
 #Add the Networking service
 #Prerequisites
 mysql -u root --password=amcc1234 <<MYSQL_SCRIPT
@@ -68,10 +68,10 @@ crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 tenant_network_types
 #The Linux bridge agent only supports VXLAN overlay networks.
 crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 mechanism_drivers linuxbridge
 crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 extension_drivers port_security
-crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2_type_flat flat_networks provider
+crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2_type_flat flat_networks public
 crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini securitygroup enable_ipset True
 #Configure the Linux bridge agent
-crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings provider:eth1
+crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini linux_bridge physical_interface_mappings public:eth1
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini vxlan enable_vxlan False
 
 crudini --set /etc/neutron/plugins/ml2/linuxbridge_agent.ini agent prevent_arp_spoofing True

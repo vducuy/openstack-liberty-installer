@@ -48,7 +48,7 @@ service mongodb start
 
 #Install Message Queue Install and configure components
 apt-get install rabbitmq-server -y
-rabbitmqctl add_user openstack ${ADMIN_PASSWD}
+rabbitmqctl add_user openstack ${ADMIN_PASSWORD}
 rabbitmqctl set_permissions openstack ".*" ".*" ".*"
 
 

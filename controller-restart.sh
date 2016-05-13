@@ -1,8 +1,13 @@
+#!/bin/bash
+
+rm -rf /var/log/nova/*
+rm -rf /var/log/neutron/*
+
 source admin-openrc.sh
-service mysql restart
-service apache2 start
-service glance-registry restart
-service glance-api restart
+#service mysql restart
+#service apache2 start
+#service glance-registry restart
+#service glance-api restart
 service nova-api restart
 service nova-cert restart
 service nova-consoleauth restart

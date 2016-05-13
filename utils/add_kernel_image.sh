@@ -1,12 +1,17 @@
 #!/bin/bash
-if [ "$1" = "" ] || [ "$2" = "" ]
-then
-	echo "Usage: $0 <Image File> <Kernel Name>"
-	exit 0
-fi
+wget http://192.168.0.254/soft/wily-server-cloudimg-arm64-vmlinuz-generic
+KERNEL_IMAGE_FILE=wily-server-cloudimg-arm64-vmlinuz-generic
+KERNEL_IMAGE_NAME="Wily Kernel"
 
-KERNEL_IMAGE_NAME=$2
-KERNEL_IMAGE_FILE=$1
+#if [ "$1" = "" ] || [ "$2" = "" ]
+#then
+#	echo "Usage: $0 <Image File> <Kernel Name>"
+#	exit 0
+#fi
+
+
+#KERNEL_IMAGE_NAME=$2
+#KERNEL_IMAGE_FILE=$1
 
 glance image-create \
 --disk-format aki \
