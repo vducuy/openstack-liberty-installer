@@ -12,7 +12,7 @@ openstack network list
 
 echo -n "Copy Provider network ID > "
 read PROVIDER_NET_ID
-nova --debug boot --flavor 2 --image Wily --nic net-id=$PROVIDER_NET_ID --security-group default --key-name mykey wily
+nova --debug boot --flavor 2 --image Wily --nic net-id=$PROVIDER_NET_ID --security-group default --key-name new wily
 
 
 openstack server list

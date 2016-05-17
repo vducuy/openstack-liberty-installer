@@ -23,17 +23,20 @@ openstack endpoint create --region RegionOne \
 #Networking Option 2: Self-service networks
 #Instal and config neutron on controller
 apt-get install neutron-server neutron-plugin-ml2 \
-	  neutron-plugin-linuxbridge-agent neutron-l3-agent neutron-dhcp-agent \
-	    neutron-metadata-agent python-neutronclient -y
+	neutron-plugin-linuxbridge-agent neutron-l3-agent neutron-dhcp-agent \
+	neutron-metadata-agent python-neutronclient conntrack -y
 #Configure the api and nova for neutron
 crudini --set /etc/neutron/neutron.conf database connection mysql+pymysql://neutron:amcc1234@controller/neutron
 crudini --set /etc/neutron/neutron.conf DEFAULT core_plugin ml2
 crudini --set /etc/neutron/neutron.conf DEFAULT service_plugins router
+
 crudini --set /etc/neutron/neutron.conf DEFAULT allow_overlapping_ips True
+
 crudini --set /etc/neutron/neutron.conf DEFAULT rpc_backend rabbit
 crudini --set /etc/neutron/neutron.conf oslo_messaging_rabbit rabbit_host controller
 crudini --set /etc/neutron/neutron.conf oslo_messaging_rabbit rabbit_userid openstack
 crudini --set /etc/neutron/neutron.conf oslo_messaging_rabbit rabbit_password amcc1234
+
 crudini --set /etc/neutron/neutron.conf DEFAULT auth_strategy keystone
 crudini --del /etc/neutron/neutron.conf keystone_authtoken
 crudini --set /etc/neutron/neutron.conf keystone_authtoken auth_uri http://controller:5000
@@ -44,9 +47,11 @@ crudini --set /etc/neutron/neutron.conf keystone_authtoken user_domain_id defaul
 crudini --set /etc/neutron/neutron.conf keystone_authtoken project_name service
 crudini --set /etc/neutron/neutron.conf keystone_authtoken username neutron
 crudini --set /etc/neutron/neutron.conf keystone_authtoken password amcc1234
+
 crudini --set /etc/neutron/neutron.conf DEFAULT notify_nova_on_port_status_changes True
 crudini --set /etc/neutron/neutron.conf DEFAULT notify_nova_on_port_data_changes True
 crudini --set /etc/neutron/neutron.conf DEFAULT nova_url http://controller:8774/v2
+
 crudini --set /etc/neutron/neutron.conf nova auth_url http://controller:35357
 crudini --set /etc/neutron/neutron.conf nova auth_plugin password
 crudini --set /etc/neutron/neutron.conf nova project_domain_id default
@@ -56,6 +61,7 @@ crudini --set /etc/neutron/neutron.conf nova project_name service
 crudini --set /etc/neutron/neutron.conf nova username nova
 crudini --set /etc/neutron/neutron.conf nova password amcc1234
 crudini --set /etc/neutron/neutron.conf DEFAULT verbose True
+
 #Ml2 plugin config, layer 3 and dhcp
 crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 type_drivers flat,vlan,vxlan
 crudini --set /etc/neutron/plugins/ml2/ml2_conf.ini ml2 tenant_network_types vxlan
