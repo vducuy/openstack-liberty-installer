@@ -15,7 +15,7 @@ service nova-scheduler restart
 service nova-conductor restart
 service nova-novncproxy restart
 service neutron-server restart
-service neutron-plugin-linuxbridge-agent restart
+service neutron-plugin-openvswitch-agent restart
 service neutron-dhcp-agent restart
 service neutron-metadata-agent restart
 service neutron-l3-agent restart

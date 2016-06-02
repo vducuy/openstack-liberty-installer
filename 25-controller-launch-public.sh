@@ -4,7 +4,7 @@ source admin-openrc.sh
 neutron net-list
 echo -n "Copy public network ID > "
 read PUBLIC_NET_ID
-nova --debug boot public3 --flavor 2 --image Wily --nic net-id=$PUBLIC_NET_ID --key-name new --security-group default
+nova --debug boot p-$1 --flavor 2 --image Wily --nic net-id=$PUBLIC_NET_ID --key-name mykey --security-group default
 
 #Create private instance
 #source demo-openrc.sh
