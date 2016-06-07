@@ -1,4 +1,3 @@
-w
 #!/bin/bash
 
 #Add the Networking service
@@ -8,6 +7,17 @@ CREATE DATABASE neutron;
 GRANT ALL PRIVILEGES ON neutron.* TO neutron@'localhost' IDENTIFIED BY 'amcc1234';
 GRANT ALL PRIVILEGES ON neutron.* TO neutron@'%' IDENTIFIED BY 'amcc1234';
 MYSQL_SCRIPT
+
+
+apt-get install openvswitch-switch -y
+
+ovs-vsctl add-br br-provider
+ovs-vsctl add-port br-provider eth1
+
+
+ovs-vsctl show
+
+
 source admin-openrc.sh
 #To create the service credentials, complete these steps:
 openstack user create --domain default --password amcc1234 neutron
@@ -134,4 +144,6 @@ rm -f /var/lib/neutron/neutron.sqlite
 source admin-openrc.sh
 neutron agent-list
 neutron ext-list
+
+ovs-vsctl show
 

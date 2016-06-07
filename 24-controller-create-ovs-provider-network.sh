@@ -1,10 +1,11 @@
 #!/bin/bash
 #Create the public network
 source admin-openrc.sh
-neutron net-create provider-101 --shared \
+
+
+neutron net-create provider --shared \
   --provider:physical_network provider \
-  --provider:network_type vlan \
-  --provider:segmentation_id 101
+  --provider:network_type flat \
 #Config security group
 #nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
 #nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
@@ -27,24 +28,26 @@ END_IP_ADDRESS=10.38.70.210
 DNS_RESOLVER=8.8.8.8
 PROVIDER_NETWORK_GATEWAY=10.38.70.1
 
-neutron subnet-create provider-101 $PROVIDER_NETWORK_CIDR \
-  --name provider-101-subnet \
+neutron subnet-create provider $PROVIDER_NETWORK_CIDR \
+  --name provider-subnet \
   --allocation-pool start=$START_IP_ADDRESS,end=$END_IP_ADDRESS \
+  --enable-dhcp \
   --dns-nameserver $DNS_RESOLVER --gateway $PROVIDER_NETWORK_GATEWAY 
+
 ip netns
 
 #Create public instance
-ssh-keygen -q -N ""
-openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey
-openstack keypair list
+#ssh-keygen -q -N ""
+#openstack keypair create --public-key ~/.ssh/id_rsa.pub mykey
+#openstack keypair list
 
-openstack security group rule create --proto icmp default
-openstack security group rule create --proto tcp --dst-port 22 default
+#openstack security group rule create --proto icmp default
+#openstack security group rule create --proto tcp --dst-port 22 default
 
-openstack flavor list
-openstack image list
-openstack network list
-openstack security group list
+#openstack flavor list
+#openstack image list
+#openstack network list
+#openstack security group list
 
 #echo -n "Copy Provider network ID > "
 #read PROVIDER_NET_ID
