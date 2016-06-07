@@ -45,7 +45,7 @@ crudini --set /etc/nova/nova.conf keystone_authtoken password amcc1234
 crudini --set /etc/nova/nova.conf DEFAULT my_ip ${CONTROLLER_ADDR}
 crudini --set /etc/nova/nova.conf DEFAULT network_api_class nova.network.neutronv2.api.API
 crudini --set /etc/nova/nova.conf DEFAULT security_group_api neutron
-crudini --set /etc/nova/nova.conf DEFAULT linuxnet_interface_driver nova.network.linux_net.NeutronLinuxBridgeInterfaceDriver
+crudini --set /etc/nova/nova.conf DEFAULT linuxnet_interface_driver nova.network.linux_net.LinuxOVSInterfaceDriver
 crudini --set /etc/nova/nova.conf DEFAULT firewall_driver nova.virt.firewall.NoopFirewallDriver
 
 crudini --set /etc/nova/nova.conf vnc vncserver_listen ${CONTROLLER_ADDR}
