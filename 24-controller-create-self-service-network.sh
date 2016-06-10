@@ -4,8 +4,8 @@ source admin-openrc.sh
 neutron net-create public --shared --provider:physical_network public \
 	   --provider:network_type flat
 #Config security group
-nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
-nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
+#nova secgroup-add-rule default icmp -1 -1 0.0.0.0/0
+#nova secgroup-add-rule default tcp 22 22 0.0.0.0/0
 #Get some usefull data
 #echo -n "Public network with cidr > "
 #read PUBLIC_NETWORK_CIDR
